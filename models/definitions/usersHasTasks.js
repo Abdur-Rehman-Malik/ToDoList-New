@@ -1,20 +1,21 @@
-const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConnection");
+const { Model, DataTypes } = require("sequelize");
 
-class userHasTasks extends Model {}
+class usersHasTasks extends Model {}
 
-userHasTasks.init(
+usersHasTasks.init(
   {
-    userHasTasksId: {
+    tusersHasTasks: {
       primaryKey: true,
+      type: DataTypes.STRING(255),
     },
   },
   {
     timestamps: true,
     paranoid: true,
-    tableName: "userHasTasks",
+    tableName: "usersHasTasks",
     sequelize,
   }
 );
 
-module.exports = userHasTasks;
+module.exports = usersHasTasks;
