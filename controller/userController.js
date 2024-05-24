@@ -3,7 +3,7 @@ const userService = require("../services/userService");
 // const { response } = require("../app");
 const userSchema = joi.object().keys({
   userName: joi.string().alphanum().min(6).max(30).required(),
-  email: joi.string().email().required(),
+  // email: joi.string().email().required(),
   password: joi.string().min(6).max(30).required(),
   confirmPassword: joi.ref("password"),
 });
