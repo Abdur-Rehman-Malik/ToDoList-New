@@ -1,5 +1,7 @@
-const { response } = require("express");
+const { where } = require("sequelize");
+// const { response } = require("../app");
 const { models } = require("./index");
+// const { response } = require("../app");
 
 module.exports = {
   createUser: async (body) => {
@@ -9,9 +11,8 @@ module.exports = {
         response: user,
       };
     } catch (error) {
-      return {
-        error: error,
-      };
+      console.log(error);
+      return { message: error.message };
     }
   },
   getUser: async (userId, userName) => {
@@ -25,8 +26,33 @@ module.exports = {
         response: user,
       };
     } catch (error) {
+      return { message: error.message };
+    }
+  },
+  getAllUsers: async () => {
+    try {
+      const user = await models.users.findAll({
+        attributes: {
+          exclude: ["password", "deletedAt"],
+        },
+        // attributes: ["userID", "userName"],
+      });
+      return { response: user };
+    } catch (error) {
+      return { message: error.message };
+    }
+  },
+  deleteUser: async (userId) => {
+    try {
+      const deleteUser = await models.users.destroy({
+        where: { userId: userId },
+      });
       return {
-        error: error,
+        response: deleteUser,
+      };
+    } catch (error) {
+      return {
+        error: error.message,
       };
     }
   },
